@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<h2>User Info</h2>
+<br>
+
+<form:form action="users/saveUser" modelAttribute="user">
+
+    <label for="name" class="form-label">Enter name:</label>
+    <input type="text" minlength="2" maxlength="20" class="form-control" th^field="*{name}" id="name"/>
+
+    <label for="lastName" class="form-label">Enter lastname:</label>
+    <input type="text" minlength="2" maxlength="20" class="form-control" th^field="*{lastName}" id="lastName"/>
+
+    <label for="age" class="form-label">Enter age:</label>
+    <input type="text" minlength="2" maxlength="20" class="form-control" th^field="*{age}" id="age"/>
+
+
+<!--    Name <form:input path="name"/>-->
+<!--    <br><br>-->
+<!--    Lastname <form:input path="lastname"/>-->
+<!--    <br><br>-->
+<!--    Age <form:input path="age"/>-->
+<!--    <br><br>-->
+    <input type="submit" value="OK">
+
+
+
+</form:form>
+
+</body>
+</html>
