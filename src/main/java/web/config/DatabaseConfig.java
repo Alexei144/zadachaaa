@@ -1,7 +1,10 @@
 package web.config;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import javax.annotation.Resource;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 
@@ -19,48 +22,46 @@ import java.io.InputStream;
 import java.util.Properties;
 
 @Configuration
+@ComponentScan("web")
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 
 public class DatabaseConfig {
-
     @Resource
     private final Environment env;
 
+    @Autowired
     public DatabaseConfig(Environment env) {
         this.env = env;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan(env.getRequiredProperty("hibernate.entity.package"));
-
-        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(getHibernateProperties());
-        return em;
-
-    }
-
     public DataSource dataSource() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setUrl(env.getRequiredProperty("hibernate.connection.url"));
-        ds.setDriverClassName(env.getRequiredProperty("hibernate.driver_class"));
-        ds.setUsername(env.getRequiredProperty("hibernate.username"));
-        ds.setPassword(env.getRequiredProperty("hibernate.password"));
-        return ds;
-//    @Bean
-//    public DataSource dataSource() {
-//        ComboPooledDataSource
-//
-//        return null;
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUrl(env.getRequiredProperty("hibernate.connection.url"));
+        dataSource.setDriverClassName(env.getRequiredProperty("hibernate.driver_class"));
+        dataSource.setUsername(env.getRequiredProperty("hibernate.username"));
+        dataSource.setPassword(env.getRequiredProperty("hibernate.password"));
+        return dataSource;
     }
 
     @Bean
-    public PlatformTransactionManager platformTransactionManager() {
-        JpaTransactionManager manager = new JpaTransactionManager();
-        manager.setEntityManagerFactory(entityManagerFactory().getObject());
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+        LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
+        entityManager.setDataSource(dataSource);
+        entityManager.setPackagesToScan(env.getRequiredProperty("hibernate.entity.package"));
+
+        entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManager.setJpaProperties(getHibernateProperties());
+        return entityManager;
+
+    }
+
+
+    @Bean
+    public PlatformTransactionManager platformTransactionManager(EntityManagerFactory entityManagerFactory) {
+        JpaTransactionManager manager = new JpaTransactionManager(entityManagerFactory);
+        manager.setEntityManagerFactory(entityManagerFactory);
         return manager;
     }
 

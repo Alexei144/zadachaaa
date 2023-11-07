@@ -14,16 +14,24 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
 
-    private final UserDao userDao;
+    private final UserDao userDao;    //@Autowierd - Надо?
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() {   // на методах уже не надо @Transactional  ?
         return userDao.getAllUsers();
     }
+
+    @Override
+    @Transactional
+    public void saveUser(User user) {
+        userDao.saveUser(user);
+
+    }
+
 
 
 }

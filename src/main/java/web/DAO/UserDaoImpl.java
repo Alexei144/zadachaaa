@@ -1,43 +1,30 @@
 package web.DAO;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    @PersistenceContext
+    @PersistenceContext   // @Autowired - может так лучше?
     private EntityManager entityManager;
 
     public List<User> getAllUsers() {
         return entityManager.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
-//    @PersistenceContext
-//    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("em");
-//
-//    @Override
-//    public List<User> getAllUsers() {
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        String query = "SELECT e FROM users e";
-//        List<User> entities = entityManager.createQuery(query, User.class).getResultList();
-//
-//        entityManager.close();
-//        entityManagerFactory.close();
-//        return null;
-//    }
-//
-//    @Override
-//    public void createUser() {
-//
-//    }
+
+ //   @Transactional
+    @Override
+    public void saveUser(User user) {
+
+        entityManager.persist(user);
+        
+    }
 //
 //    @Override
 //    public void deleteUser() {
