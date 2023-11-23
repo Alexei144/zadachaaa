@@ -6,19 +6,19 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/users}" th:oject="${user}">
+<form th:method="POST" th:action="@{/users}" th:object="${user}">
     <label for="name" class="form-label">Enter name:</label>
-    <input type="text" minlength="2" maxlength="20" class="form-control" th^field="*{user.getName()}" id="name"/>
+    <input type="text" minlength="2" maxlength="20" class="form-control" th:field="*{name}" id="name"/>
 
     <label for="lastName" class="form-label">Enter lastname:</label>
-    <input type="text" minlength="2" maxlength="20" class="form-control" th^field="*{user.getLastName()}" id="lastName"/>
+    <input type="text" minlength="2" maxlength="20" class="form-control" th:field="*{lastName}" id="lastName"/>
 
     <label for="age" class="form-label">Enter age:</label>
-    <input type="text" minlength="2" maxlength="20" class="form-control" th^field="*{user.getAge()}" id="age"/>
+    <input type="text" minlength="2" maxlength="20" class="form-control" th:field="*{age}" id="age"/>
 
 
     <input type="submit" value="Create!"/>
 </form>
 
 </body>
-</html>+
+</html>
