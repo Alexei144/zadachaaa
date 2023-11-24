@@ -9,13 +9,13 @@
 <form th:method="POST" th:action="@{/users}" th:object="${user}">
     <label for="name" class="form-label">Enter name:</label>
     <input type="text" minlength="2" maxlength="20" class="form-control" th:field="*{name}" id="name"/>
-
+    <br/>
     <label for="lastName" class="form-label">Enter lastname:</label>
     <input type="text" minlength="2" maxlength="20" class="form-control" th:field="*{lastName}" id="lastName"/>
-
+    <br/>
     <label for="age" class="form-label">Enter age:</label>
     <input type="text" minlength="2" maxlength="20" class="form-control" th:field="*{age}" id="age"/>
-
+    <br/>
 
     <input type="submit" value="Create!"/>
 </form>

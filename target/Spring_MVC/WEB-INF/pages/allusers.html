@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:c="http://java.sun.com/xml/ns/javaee">
 <head>
     <meta charset="UTF-8">
     <title>all Users</title>
@@ -15,14 +15,21 @@
         <th>Name</th>
         <th>LastName</th>
         <th>Age</th>
+
+
     </tr>
 
     <div th:each="user : ${users}">
+
+
+
         <tr>
             <td><a  th:text="${user.getId()}">user</a></td>
-            <td><a  th:text="${user.getName()}">user</a></td>
+            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a></td>
             <td><a  th:text="${user.getLastName()}">user</a></td>
             <td><a  th:text="${user.getAge()}">user</a></td>
+
+
         </tr>
 
     </div>

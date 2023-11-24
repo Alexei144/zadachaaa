@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void updateUser(int id, User updatedUser) {
-
+        userDao.updateUser(id, updatedUser);
     }
 
 

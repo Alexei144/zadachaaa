@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping()
     public String allUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("users", userService.getAllUsers());  //  index
         return "allusers";
     }
 
@@ -32,7 +32,7 @@ public class UserController {
 
     @GetMapping("/new")
     public String newUser(@ModelAttribute("user") User user) {
-        return "/new";
+        return "new";
     }
 
     @PostMapping()
@@ -41,21 +41,31 @@ public class UserController {
         return "redirect:/users";
     }
 
-//    @GetMapping("/{id}/edit")
-//    public String edit(Model model, @PathVariable("id") int id) {
-//        model.addAttribute("user", userService.getUserById(id));
-//        return "/edit";
-//    }
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("user", userService.getUserById(id));
+        return "edit";
+    }
 
-    @GetMapping("/updateInfo")
-    public String updateUser(@RequestParam("userId") int id, Model model) {
-
-        User user = userService.getUserById(id);
-        model.addAttribute("user", user);
-
-        return "/new";
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
+        userService.updateUser(id, user);
+        return "redirect:/users";
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

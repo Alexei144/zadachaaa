@@ -15,25 +15,20 @@
         <th>Name</th>
         <th>LastName</th>
         <th>Age</th>
-        <th>Operations</th>
+
 
     </tr>
 
     <div th:each="user : ${users}">
 
-        <c:url var="updateButton" value="/users/updateInfo">
-            <c:param name="userId" value="${user.getId}"/>
-        </c:url>
+
 
         <tr>
             <td><a  th:text="${user.getId()}">user</a></td>
-            <td><a  th:text="${user.getName()}">user</a></td>
+            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a></td>
             <td><a  th:text="${user.getLastName()}">user</a></td>
             <td><a  th:text="${user.getAge()}">user</a></td>
-            <td>
-                <input type="button" value="Update"
-                onclick="window.location.href = '${updateButton}'"/>
-            </td>
+
 
         </tr>
 
