@@ -9,6 +9,10 @@
 <p th:text="${user.getLastName()}">VALUE</p>
 <p th:text="${user.getAge()}">VALUE</p>
 
+<form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+
 
 </body>
 </html>
